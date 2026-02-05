@@ -35,8 +35,7 @@ const Navbar = () => {
                     padding: '1.5rem 0',
                     transition: 'all 0.3s ease',
                     backgroundColor: scrolled ? 'rgba(10, 10, 10, 0.8)' : 'transparent',
-                    backdropFilter: scrolled ? 'blur(10px)' : 'none',
-                    borderBottom: scrolled ? '1px solid rgba(255,255,255,0.05)' : 'none'
+                    backdropFilter: scrolled ? 'blur(10px)' : 'none'
                 }}
             >
                 <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -87,7 +86,8 @@ const Navbar = () => {
                                 letterSpacing: '0.1em',
                                 transition: 'all 0.3s ease',
                                 color: '#fff',
-                                textDecoration: 'none'
+                                textDecoration: 'none',
+                                fontFamily: 'var(--font-mono)',
                             }}
                             className="nav-cta"
                         >

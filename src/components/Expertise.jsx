@@ -71,15 +71,14 @@ const Expertise = () => {
             ref={sectionRef}
             style={{
                 padding: '120px 0',
-                borderTop: '1px solid rgba(255,255,255,0.05)',
-                backgroundColor: '#050505' // Match other sections
+                backgroundColor: 'var(--bg-black)', // Match other sections
             }}
         >
             <div className="container">
                 {/* Stacked Heading - Top */}
                 <div className="section-header">
                     <span className="section-label">01 — Services</span>
-                    <h2 className="section-title">Our Expertise</h2>
+                    <h2 className="section-title heading-glow">Our Expertise</h2>
                 </div>
 
                 {/* Grid */}
@@ -124,7 +123,7 @@ const Expertise = () => {
 
         .section-label {
             display: block;
-            font-family: var(--font-display);
+            font-family: var(--font-mono);
             font-size: 0.85rem;
             color: var(--accent-cyan);
             margin-bottom: 1rem;
@@ -177,7 +176,7 @@ const Expertise = () => {
             left: 0;
             width: 100%;
             height: 2px;
-            background: var(--accent-cyan);
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-indigo));
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s ease;
@@ -199,7 +198,7 @@ const Expertise = () => {
             height: 10px;
             background: var(--accent-cyan);
             margin-bottom: 1.5rem;
-            box-shadow: 0 0 10px var(--accent-cyan);
+            box-shadow: 0 0 10px var(--accent-cyan), 0 0 20px var(--accent-indigo);
         }
 
         .card-top h3 {
@@ -209,7 +208,7 @@ const Expertise = () => {
         }
 
         .service-card p {
-            color: #d4d4d4; /* Lighter for WCAG AA+ Compliance */
+            color: #888888; /* Lighter for WCAG AA+ Compliance - Updated */
             font-size: 1rem;
             line-height: 1.6;
             margin-bottom: 2rem;
@@ -224,7 +223,7 @@ const Expertise = () => {
 
         .pill {
             font-size: 0.75rem;
-            font-family: var(--font-display);
+            font-family: var(--font-mono);
             color: #ccc;
             border: 1px solid #333;
             padding: 0.25rem 0.75rem;

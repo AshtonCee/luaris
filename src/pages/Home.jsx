@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Hero from '../components/Hero';
 import Expertise from '../components/Expertise';
 import Approach from '../components/Approach';
+import DevelopmentProcess from '../components/DevelopmentProcess';
 import Contact from '../components/Contact';
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
             <Hero />
             <Expertise />
             <Approach />
+            <DevelopmentProcess />
             <Contact />
         </main>
     );

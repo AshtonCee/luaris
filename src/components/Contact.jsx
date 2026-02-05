@@ -5,7 +5,7 @@ const Contact = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        interest: 'Development',
+        interest: 'Free Site Audit',
         message: ''
     });
 
@@ -66,10 +66,9 @@ const Contact = () => {
 
     return (
         <footer id="contact" ref={sectionRef} style={{
-            backgroundColor: '#050505',
+            backgroundColor: 'var(--bg-black)',
             padding: '120px 0 40px',
             color: '#fff',
-            borderTop: '1px solid rgba(255,255,255,0.05)'
         }}>
             <div className="container">
                 <div className="contact-layout">
@@ -78,12 +77,12 @@ const Contact = () => {
                     <div className="contact-info">
                         <div className="animate-item section-header">
                             <span className="section-label">03 — Contact</span>
-                            <h2 className="section-title">Start a Project</h2>
+                            <h2 className="section-title heading-glow">Start a Project</h2>
                         </div>
 
                         <div className="animate-item delay-1" style={{ marginBottom: '3rem' }}>
-                            <p style={{ color: '#aaa', fontSize: '1.1rem', maxWidth: '400px', lineHeight: '1.6' }}>
-                                Ready to architect the next big thing? Tell us about your vision. We handle the rest.
+                            <p style={{ color: '#888888', fontSize: '1.1rem', maxWidth: '400px', lineHeight: '1.6' }}>
+                                Ready to architect the next big thing? Tell us about your vision, or <strong style={{ color: '#fff' }}>request a Free Site Audit</strong> to uncover hidden performance bottlenecks. We handle the rest.
                             </p>
                         </div>
                     </div>
@@ -131,12 +130,13 @@ const Contact = () => {
                                         value={formData.interest}
                                         onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
                                     >
-                                        <option value="Website Design">Website Design</option>
-                                        <option value="Web Development">Web Development</option>
-                                        <option value="UI/UX Design">UI/UX Design</option>
-                                        <option value="SEO Optimization">SEO Optimization</option>
-                                        <option value="Digital Products">Digital Products</option>
                                         <option value="Brand Strategy">Brand Strategy</option>
+                                        <option value="Digital Products">Digital Products</option>
+                                        <option value="Free Site Audit">Free Site Audit</option>
+                                        <option value="SEO Optimization">SEO Optimization</option>
+                                        <option value="UI/UX Design">UI/UX Design</option>
+                                        <option value="Web Development">Web Development</option>
+                                        <option value="Website Design">Website Design</option>
                                         <option value="Other">Other</option>
                                     </select>
                                 </div>
@@ -199,7 +199,7 @@ const Contact = () => {
 
         .section-label {
             display: block;
-            font-family: var(--font-display);
+            font-family: var(--font-mono);
             font-size: 0.85rem;
             color: var(--accent-cyan);
             margin-bottom: 1rem;
@@ -273,7 +273,7 @@ const Contact = () => {
              background: transparent;
              border: 1px solid var(--accent-cyan);
              color: var(--accent-cyan);
-             font-family: var(--font-display);
+             font-family: var(--font-mono);
              text-transform: uppercase;
              letter-spacing: 0.1em;
              font-weight: 600;

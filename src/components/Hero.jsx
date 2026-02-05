@@ -134,7 +134,7 @@ const Hero = () => {
       position: 'relative',
       overflow: 'hidden',
       paddingTop: '60px',
-      background: '#050505'
+      background: 'var(--bg-black)'
     }}>
       <canvas
         ref={canvasRef}
@@ -190,7 +190,9 @@ const Hero = () => {
                 }
 
                 .highlight-text {
-                    color: var(--accent-cyan);
+                    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-indigo));
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
                     position: relative;
                     display: inline-block;
                 }
@@ -200,9 +202,9 @@ const Hero = () => {
                     font-size: clamp(1.1rem, 2vw, 1.4rem);
                     max-width: 600px;
                     margin: 0 auto 4rem;
-                    color: var(--text-off-white);
+                    color: #888888;
                     font-weight: 300;
-                    opacity: 0.8;
+                    opacity: 1; /* Remove opacity to ensure exact color match */
                 }
 
                 .hero-cta {
@@ -218,7 +220,7 @@ const Hero = () => {
                     border: 1px solid var(--accent-cyan);
                     transition: all 0.3s ease;
                     overflow: hidden;
-                    background: rgba(0,0,0,0.3);
+                    background-color: rgba(5, 5, 10, 0.3);
                     backdrop-filter: blur(5px);
                 }
 
