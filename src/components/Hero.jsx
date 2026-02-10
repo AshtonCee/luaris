@@ -1,126 +1,17 @@
 import React, { useEffect, useRef } from 'react';
+import ConstellationCanvas from './ConstellationCanvas';
+import Button from './Button';
 
 const Hero = () => {
-  const canvasRef = useRef(null);
   const containerRef = useRef(null);
 
-  // Configuration
-  const PARTICLE_COUNT = 80;
-  const CONNECT_DISTANCE = 150;
-  const ACCENT_COLOR_RGB = '0, 240, 255'; // Electric Cyan
-
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-
-    let width, height;
-    let particles = [];
-    let mouse = { x: -1000, y: -1000 };
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.5; // Slow movement
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.size = Math.random() * 2 + 1;
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        // Bounce off edges
-        if (this.x < 0 || this.x > width) this.vx *= -1;
-        if (this.y < 0 || this.y > height) this.vy *= -1;
-
-        // Mouse Repel (Subtle)
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 200) {
-          const forceDirectionX = dx / distance;
-          const forceDirectionY = dy / distance;
-          const force = (200 - distance) / 200;
-          const directionX = forceDirectionX * force * 0.5;
-          const directionY = forceDirectionY * force * 0.5;
-          this.x -= directionX;
-          this.y -= directionY;
-        }
-      }
-
-      draw() {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    const init = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      particles = [];
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push(new Particle());
-      }
-    };
-
-    const animate = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      // Update and Draw Particles
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-
-      // Draw Connections
-      particles.forEach((a, index) => {
-        for (let j = index + 1; j < particles.length; j++) {
-          const b = particles[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < CONNECT_DISTANCE) {
-            const opacity = 1 - (distance / CONNECT_DISTANCE);
-            ctx.strokeStyle = `rgba(${ACCENT_COLOR_RGB}, ${opacity * 0.5})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        }
-      });
-
-      requestAnimationFrame(animate);
-    };
-
-    const handleResize = () => init();
-    const handleMouseMove = (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    };
-
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove);
-
-    init();
-    animate();
-
     // Trigger Entry Animations
     const timer = setTimeout(() => {
       if (containerRef.current) containerRef.current.classList.add('visible');
     }, 100);
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -136,10 +27,7 @@ const Hero = () => {
       paddingTop: '60px',
       background: 'var(--bg-black)'
     }}>
-      <canvas
-        ref={canvasRef}
-        style={{ position: 'absolute', top: 0, left: 0, zIndex: 0 }}
-      />
+      <ConstellationCanvas />
 
       <div className="container" ref={containerRef} style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '1400px', pointerEvents: 'none' }}>
 
@@ -173,9 +61,9 @@ const Hero = () => {
         </div>
 
         <div className="reveal-text delay-4" style={{ pointerEvents: 'auto' }}>
-          <a href="#services" className="hero-cta">
+          <Button href="#services" className="hero-cta">
             What We Do
-          </a>
+          </Button>
         </div>
       </div>
 
@@ -205,44 +93,6 @@ const Hero = () => {
                     color: #888888;
                     font-weight: 300;
                     opacity: 1; /* Remove opacity to ensure exact color match */
-                }
-
-                .hero-cta {
-                    position: relative;
-                    display: inline-block;
-                    padding: 1rem 3rem;
-                    color: var(--accent-cyan);
-                    text-transform: uppercase;
-                    font-family: 'Space Grotesk', sans-serif;
-                    font-weight: 600;
-                    font-size: 0.9rem;
-                    letter-spacing: 0.1em;
-                    border: 1px solid var(--accent-cyan);
-                    transition: all 0.3s ease;
-                    overflow: hidden;
-                    background-color: rgba(5, 5, 10, 0.3);
-                    backdrop-filter: blur(5px);
-                }
-
-                .hero-cta::before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: var(--accent-cyan);
-                    transform: translateX(-101%);
-                    transition: transform 0.3s ease;
-                    z-index: -1;
-                }
-
-                .hero-cta:hover {
-                    color: #000;
-                }
-
-                .hero-cta:hover::before {
-                    transform: translateX(0);
                 }
 
                 /* Reveal Animations */

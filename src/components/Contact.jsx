@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Button from './Button';
 
 const Contact = () => {
     const sectionRef = useRef(null);
@@ -76,13 +77,13 @@ const Contact = () => {
                     {/* Left: Heading & Info */}
                     <div className="contact-info">
                         <div className="animate-item section-header">
-                            <span className="section-label">03 — Contact</span>
+                            <span className="section-label">04 — Contact</span>
                             <h2 className="section-title heading-glow">Start a Project</h2>
                         </div>
 
                         <div className="animate-item delay-1" style={{ marginBottom: '3rem' }}>
                             <p style={{ color: '#888888', fontSize: '1.1rem', maxWidth: '400px', lineHeight: '1.6' }}>
-                                Ready to architect the next big thing? Tell us about your vision, or <strong style={{ color: '#fff' }}>request a Free Site Audit</strong> to uncover hidden performance bottlenecks. We handle the rest.
+                                Ready to architect the next big thing? Tell us about your vision, or <strong className="glow-text">request a Free Site Audit</strong> to uncover hidden performance bottlenecks. We handle the rest.
                             </p>
                         </div>
                     </div>
@@ -154,9 +155,9 @@ const Contact = () => {
                                 ></textarea>
                             </div>
 
-                            <button type="submit" className="submit-btn" disabled={status === 'sending' || status === 'success'}>
+                            <Button type="submit" className="submit-btn" disabled={status === 'sending' || status === 'success'}>
                                 {status === 'sending' ? 'Sending...' : status === 'success' ? '✔ Application Received' : status === 'error' ? 'Error. Try again.' : 'Send Inquiry'}
-                            </button>
+                            </Button>
 
                             {status === 'success' && (
                                 <p className="success-msg">
@@ -174,7 +175,7 @@ const Contact = () => {
                         &copy; {new Date().getFullYear()} Luaris.<br />All Rights Reserved.
                     </div>
                     <div className="location-box">
-                        Lawrence, KS
+                        Kansas City, KS
                     </div>
                 </div>
             </div>
@@ -269,22 +270,6 @@ const Contact = () => {
 
          .submit-btn {
              align-self: flex-start;
-             padding: 1rem 3rem;
-             background: transparent;
-             border: 1px solid var(--accent-cyan);
-             color: var(--accent-cyan);
-             font-family: var(--font-mono);
-             text-transform: uppercase;
-             letter-spacing: 0.1em;
-             font-weight: 600;
-             transition: all 0.3s ease;
-             cursor: pointer;
-         }
-
-         .submit-btn:hover:not(:disabled) {
-             background: var(--accent-cyan);
-             color: #000;
-             box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
          }
 
          .submit-btn:disabled {
@@ -319,6 +304,19 @@ const Contact = () => {
         .delay-1 { transition-delay: 0.2s; }
          .delay-2 { transition-delay: 0.4s; }
          .delay-3 { transition-delay: 0.6s; }
+
+         .glow-text {
+             color: #fff;
+             transition: all 0.3s ease;
+             cursor: pointer;
+             position: relative;
+             display: inline-block;
+         }
+         
+         .glow-text:hover {
+             color: var(--accent-cyan);
+             text-shadow: 0 0 15px rgba(0, 240, 255, 0.6), 0 0 30px rgba(0, 240, 255, 0.4);
+         }
       `}</style>
         </footer>
     );

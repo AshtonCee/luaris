@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import Button from './Button';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -45,6 +46,7 @@ const Navbar = () => {
                         letterSpacing: '-0.05em',
                         textTransform: 'uppercase',
                         color: 'var(--text-white)',
+                        textDecoration: 'none',
                         textDecoration: 'none'
                     }}>
                         Luaris
@@ -75,24 +77,9 @@ const Navbar = () => {
                                 {link.name}
                             </Link>
                         ))}
-                        <a
-                            href="#contact"
-                            style={{
-                                padding: '0.8rem 2rem',
-                                border: '1px solid #333',
-                                borderRadius: '0px',
-                                fontSize: '0.85rem',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.1em',
-                                transition: 'all 0.3s ease',
-                                color: '#fff',
-                                textDecoration: 'none',
-                                fontFamily: 'var(--font-mono)',
-                            }}
-                            className="nav-cta"
-                        >
+                        <Button href="#contact" className="nav-cta">
                             Let's Talk
-                        </a>
+                        </Button>
                     </div>
 
                     {/* Mobile Hamburger */}
@@ -181,12 +168,6 @@ const Navbar = () => {
           .hamburger-btn { display: none !important; }
         }
         .nav-link:hover { opacity: 1 !important; }
-        .nav-cta:hover { 
-          border-color: var(--accent-cyan) !important;
-          color: var(--accent-cyan) !important; 
-          box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
-          background: transparent;
-        }
       `}</style>
         </>
     );

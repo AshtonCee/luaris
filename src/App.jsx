@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Founder from './pages/Founder';
 
+import NotFound from './pages/NotFound';
 import ScrollToHash from './components/ScrollToHash';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/founder" element={<Founder />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>

@@ -74,7 +74,7 @@ const Expertise = () => {
                 backgroundColor: 'var(--bg-black)', // Match other sections
             }}
         >
-            <div className="container">
+            <div className="container" style={{ position: 'relative', zIndex: 2 }}>
                 {/* Stacked Heading - Top */}
                 <div className="section-header">
                     <span className="section-label">01 — Services</span>
@@ -109,6 +109,19 @@ const Expertise = () => {
             </div>
 
             <style>{`
+        /* Background Grid */
+        /* Background Grid Removed - Inherits Global */
+        #services {
+            position: relative;
+            /* overflow: hidden; */ /* specific overflow might not be needed if no local background */
+        }
+
+        /* 
+        #services::before {
+             Removed local grid 
+        } 
+        */
+
         .section-header {
             margin-bottom: 5rem;
             text-align: left;
@@ -158,7 +171,7 @@ const Expertise = () => {
         }
 
         .service-card {
-            background: #0f0f0f;
+            background: rgba(15, 15, 15, 0.8); /* Slight transparency for grid */
             border: 1px solid #1a1a1a;
             padding: 2.5rem;
             height: 100%;
@@ -167,6 +180,7 @@ const Expertise = () => {
             transition: all 0.2s ease-out; /* Super snappy hover */
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(5px);
         }
 
         .service-card::before {

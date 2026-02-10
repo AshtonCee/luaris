@@ -44,11 +44,10 @@ html {
 body {
   font-family: var(--font-body);
   background-color: var(--bg-black);
-  /* Tech Grid Background */
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
+
+  /* Grid Removed per user request */
+  background-image: none;
+
   color: #888888;
   /* Updated to user request */
   line-height: 1.6;

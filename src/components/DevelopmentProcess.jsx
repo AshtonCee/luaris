@@ -32,6 +32,14 @@ const DevelopmentProcess = () => {
     const sectionRef = useRef(null);
     const [hoveredIndex, setHoveredIndex] = useState(null);
 
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => setWindowWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -71,6 +79,8 @@ const DevelopmentProcess = () => {
                     <h2 className="section-title heading-glow">Development Lifecycle</h2>
                 </div>
 
+
+
                 <div className="process-grid">
                     {steps.map((step, index) => (
                         <div
@@ -79,8 +89,6 @@ const DevelopmentProcess = () => {
                             onMouseEnter={() => setHoveredIndex(index)}
                             onMouseLeave={() => setHoveredIndex(null)}
                         >
-                            <div className={`step-connector ${index > 0 ? 'has-line' : ''} ${hoveredIndex >= index ? 'active' : ''}`}></div>
-
                             <div className="step-content">
                                 <div className={`step-marker ${hoveredIndex >= index ? 'active' : ''}`}>
                                     <span className="step-number">{step.id}</span>
@@ -90,6 +98,17 @@ const DevelopmentProcess = () => {
                             </div>
                         </div>
                     ))}
+                </div>
+
+                <div className="process-track-container">
+                    <div className="process-track"></div>
+                    <div
+                        className="process-progress"
+                        style={{
+                            width: hoveredIndex !== null && windowWidth > 900 ? `${(hoveredIndex / 4) * 100}%` : (windowWidth <= 900 ? '2px' : '0%'),
+                            height: hoveredIndex !== null && windowWidth <= 900 ? `${(hoveredIndex / 4) * 100}%` : (windowWidth > 900 ? '100%' : '0%')
+                        }}
+                    ></div>
                 </div>
             </div>
 
@@ -115,57 +134,79 @@ const DevelopmentProcess = () => {
                     text-transform: uppercase;
                 }
 
+                /* Track Container */
+                .process-track-container {
+                    position: relative;
+                    margin-top: 3rem; /* Space below items */
+                    left: 10%;
+                    width: 80%;
+                    height: 2px;
+                    z-index: 0;
+                }
+
+                .process-track {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #222;
+                }
+
+                .process-progress {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-indigo));
+                    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+                    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+                }
+
                 .process-grid {
                     display: grid;
                     grid-template-columns: repeat(5, 1fr);
                     gap: 1rem;
                     position: relative;
+                    z-index: 1; /* Above track */
                 }
 
                 .process-step {
                     position: relative;
                     padding-top: 3rem;
+                    /* Align markers to center of grid cell */
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center; /* Center content */
+                    text-align: center;
                 }
 
                 /* Circuit Lines Connection */
-                .step-connector {
-                    position: absolute;
-                    top: 15px; /* Align with circle center roughly */
-                    left: -50%;
-                    width: 100%;
-                    height: 2px;
-                    background: #222;
-                    transition: all 0.5s ease;
-                }
                 
-                .process-step:first-child .step-connector {
-                    display: none;
-                }
-
-                .step-connector.active {
-                    background: var(--accent-cyan);
-                    box-shadow: 0 0 8px var(--accent-cyan);
-                }
-
                 .step-content {
                     display: flex;
                     flex-direction: column;
                     gap: 1.5rem;
+                    align-items: center;
+                    width: 100%;
                 }
 
                 .step-marker {
                     width: 30px;
                     height: 30px;
                     border: 2px solid #333;
-                    background: 'var(--bg-black)',
+                    background: var(--bg-black);
                     border-radius: 50%; /* Circuit nodes usually round or square */
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     position: absolute;
                     top: 0;
-                    left: 0;
+                    /* Center horizontally in the relative parent (.process-step) */
+                    left: 50%;
+                    transform: translateX(-50%);
                     transition: all 0.4s ease;
+                    z-index: 2; /* Hide line behind */
                 }
 
                 .step-marker.active {
@@ -178,7 +219,6 @@ const DevelopmentProcess = () => {
                     font-size: 0.7rem;
                     font-family: var(--font-mono);
                     color: #666;
-                    opacity: 0; /* Hide number inside dot for cleaner circuit look, or keep it */
                 }
 
                 .step-title {
@@ -198,6 +238,7 @@ const DevelopmentProcess = () => {
                     font-size: 0.95rem;
                     color: var(--text-muted);
                     line-height: 1.5;
+                    max-width: 250px;
                 }
 
                 /* Mobile Response */
@@ -205,30 +246,43 @@ const DevelopmentProcess = () => {
                     .process-grid {
                         grid-template-columns: 1fr;
                         gap: 3rem;
-                        padding-left: 2rem; /* Make room for vertical line */
+                        padding-left: 3rem; /* Space for line */
+                        text-align: left;
                     }
 
                     .process-step {
                         padding-top: 0;
-                        padding-left: 2rem;
+                        align-items: flex-start;
+                        text-align: left;
+                    }
+                    
+                    .step-content {
+                        align-items: flex-start;
                     }
 
                     .step-marker {
-                        left: -3rem; /* Align to left vertical line */
+                        left: -3rem; 
                         top: 0;
-                        z-index: 2;
-                    }
-
-                    /* Vertical Line */
-                    .step-connector {
-                        top: -3rem; /* Connect from previous */
-                        left: -2.1rem; /* Align vertical - approx center of marker */
-                        width: 2px;
-                        height: calc(100% + 3rem); /* Stretch full height to next */
+                        transform: none;
                     }
                     
-                    .process-step:first-child .step-connector {
-                        display: none; 
+                    .step-desc {
+                        max-width: 100%;
+                    }
+
+                    /* Vertical Track */
+                    .process-track-container {
+                        top: 15px; /* Start at first dot center */
+                        left: 15px;
+                        
+                        width: 2px;
+                        height: 85%; 
+                    }
+                    
+                    .process-progress {
+                        width: 100%; /* Full width of the 2px line */
+                        height: 0; /* Animate height */
+                        transition: height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
                     }
                 }
 

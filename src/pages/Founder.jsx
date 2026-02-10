@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Contact from '../components/Contact'; // Reuse Footer
+import Button from '../components/Button';
 
 const techStack = [
     { name: 'React', icon: 'M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z' },
@@ -18,12 +19,15 @@ const Founder = () => {
     }, []);
 
     return (
-        <div className="founder-page" style={{ paddingTop: '80px', backgroundColor: '#0a0a0a', minHeight: '100vh', color: '#fff' }}>
+        <div className="founder-page" style={{ paddingTop: '120px', minHeight: '100vh' }}>
             <div className="container">
 
                 {/* Hero Header */}
                 <div className="founder-hero animate-in">
-                    <h1 className="hero-title">Architecting the Future.</h1>
+                    <span className="section-label center">Visionary</span>
+                    <h1 className="hero-title">
+                        Architecting the <span className="highlight-text">Future.</span>
+                    </h1>
                     <p className="hero-subtext">
                         Bridging the gap between raw code and human experience to build digital products that matter.
                     </p>
@@ -32,13 +36,14 @@ const Founder = () => {
                 {/* Founder Profile */}
                 <div className="founder-layout">
 
-                    {/* Left: Portrait (Placeholder) */}
+                    {/* Left: Portrait */}
                     <div className="founder-image-wrapper animate-in delay-1">
                         <img
                             src="/founder.jpg"
                             alt="The Founder"
                             className="founder-image"
                         />
+                        <div className="image-overlay"></div>
                     </div>
 
                     {/* Right: Bio */}
@@ -54,12 +59,12 @@ const Founder = () => {
                         </div>
 
                         <div className="social-links">
-                            <a href="https://www.linkedin.com/in/ashton-coplin/" target="_blank" rel="noopener noreferrer" className="social-btn">
+                            <Button href="https://www.linkedin.com/in/ashton-coplin/" target="_blank" rel="noopener noreferrer" className="social-btn">
                                 LinkedIn
-                            </a>
-                            <a href="https://github.com/AshtonCee" target="_blank" rel="noopener noreferrer" className="social-btn">
+                            </Button>
+                            <Button href="https://github.com/AshtonCee" target="_blank" rel="noopener noreferrer" className="social-btn">
                                 GitHub
-                            </a>
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -70,6 +75,7 @@ const Founder = () => {
                     <div className="skills-grid">
                         {techStack.map((tech, i) => (
                             <div key={i} className="skill-card">
+                                <div className="card-top-line"></div>
                                 <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="1.5" className="skill-icon">
                                     <path d={tech.icon} />
                                 </svg>
@@ -81,15 +87,17 @@ const Founder = () => {
 
             </div>
 
-            {/* Reuse Contact Footer */}
+            {/* Reuse Contact Footer - Wrapper provides spacing */}
             <div className="founder-cta-section animate-in delay-4">
                 <Contact />
             </div>
 
             <style>{`
+                /* Page Transition */
                 .founder-page {
                     opacity: 0;
                     animation: fadeInPage 1s ease forwards;
+                    /* Removed hardcoded bg-color to allow global grid */
                 }
                 @keyframes fadeInPage {
                     to { opacity: 1; }
@@ -97,22 +105,31 @@ const Founder = () => {
 
                 .founder-hero {
                     text-align: center;
-                    padding: 80px 0 100px;
+                    padding: 0 0 100px;
                 }
 
                 .hero-title {
-                    font-size: clamp(3rem, 7vw, 6rem);
+                    font-size: clamp(3.5rem, 8vw, 7rem);
                     font-weight: 700;
-                    margin-bottom: 1.5rem;
-                    line-height: 1.1;
+                    margin-bottom: 2rem;
+                    line-height: 1.05;
+                    letter-spacing: -0.04em;
+                    color: #fff;
+                }
+
+                .highlight-text {
+                    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-indigo));
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
                 }
 
                 .hero-subtext {
-                    font-size: 1.25rem;
-                    color: #aaa;
-                    max-width: 600px;
+                    font-size: clamp(1.1rem, 2vw, 1.4rem);
+                    color: #888888;
+                    max-width: 700px;
                     margin: 0 auto;
                     font-weight: 300;
+                    line-height: 1.6;
                 }
 
                 .founder-layout {
@@ -124,14 +141,16 @@ const Founder = () => {
                 }
                 @media (min-width: 992px) {
                     .founder-layout {
-                        grid-template-columns: 400px 1fr; /* Reduced image column size */
+                        grid-template-columns: 450px 1fr;
                         gap: 8rem;
                     }
                 }
 
+                /* Image Styling */
                 .founder-image-wrapper {
-                    width: 385px;
-                    height: 385px;
+                    width: 100%;
+                    max-width: 450px;
+                    aspect-ratio: 1;
                     position: relative;
                     margin: 0 auto;
                 }
@@ -140,24 +159,27 @@ const Founder = () => {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    border: 1px solid #333;
                     filter: grayscale(100%);
                     transition: all 0.5s ease;
+                    border: 1px solid #222;
                 }
                 
-                .founder-image:hover {
+                /* Removed secondary outline ::after styles */
+
+                .founder-image-wrapper:hover .founder-image {
                     filter: grayscale(0%);
-                    border-color: var(--accent-cyan);
-                    box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+                    border-width: 2px;
+                    border-style: solid;
+                    border-image: linear-gradient(90deg, var(--accent-cyan), var(--accent-indigo)) 1;
                 }
 
                 .section-label {
-                    font-family: var(--font-display);
-                    font-size: 0.9rem;
+                    font-family: var(--font-mono);
+                    font-size: 0.85rem;
                     color: var(--accent-cyan);
                     text-transform: uppercase;
-                    letter-spacing: 0.2em;
-                    margin-bottom: 2rem;
+                    letter-spacing: 0.15em;
+                    margin-bottom: 1.5rem;
                     display: block;
                 }
                 .section-label.center { text-align: center; }
@@ -165,29 +187,13 @@ const Founder = () => {
                 .bio-text p {
                     font-size: 1.1rem;
                     line-height: 1.8;
-                    color: #d4d4d4;
+                    color: #b0b0b0;
                     margin-bottom: 2rem;
                 }
 
                 .social-links {
                     display: flex;
                     gap: 1.5rem;
-                }
-
-                .social-btn {
-                    padding: 0.8rem 2rem;
-                    border: 1px solid #333;
-                    color: #fff;
-                    text-transform: uppercase;
-                    letter-spacing: 0.1em;
-                    font-size: 0.85rem;
-                    transition: all 0.3s ease;
-                    text-decoration: none;
-                }
-                .social-btn:hover {
-                    border-color: var(--accent-cyan);
-                    color: var(--accent-cyan);
-                    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
                 }
 
                 .skills-section {
@@ -205,36 +211,60 @@ const Founder = () => {
                     }
                 }
 
+                /* Tech Card - Glassmorphism */
                 .skill-card {
-                    background: #111;
-                    border: 1px solid #222;
-                    padding: 3rem 1rem;
+                    background: rgba(15, 15, 15, 0.6);
+                    backdrop-filter: blur(5px);
+                    border: 1px solid #1a1a1a;
+                    padding: 3rem 1.5rem;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     gap: 1.5rem;
                     transition: all 0.3s ease;
+                    position: relative;
+                    overflow: hidden;
                 }
+
+                .card-top-line {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+                    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-indigo));
+                    transform: scaleX(0);
+                    transform-origin: left;
+                    transition: transform 0.4s ease;
+                }
+
                 .skill-card:hover {
-                    border-color: var(--accent-cyan);
-                    background: #0f0f0f;
                     transform: translateY(-5px);
+                    border-color: #333;
+                    background: #141414;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                }
+                
+                .skill-card:hover .card-top-line {
+                    transform: scaleX(1);
                 }
 
                 .skill-icon {
-                    color: #555;
+                    color: #444;
                     transition: color 0.3s ease;
                 }
                 .skill-card:hover .skill-icon {
                     color: var(--accent-cyan);
+                    filter: drop-shadow(0 0 5px var(--accent-cyan));
                 }
 
                 .skill-name {
                     font-family: var(--font-display);
-                    font-size: 0.9rem;
+                    font-size: 0.95rem;
                     text-transform: uppercase;
                     letter-spacing: 0.1em;
-                    color: #888;
+                    color: #666;
+                    transition: color 0.3s ease;
                 }
                 .skill-card:hover .skill-name {
                     color: #fff;
@@ -243,12 +273,13 @@ const Founder = () => {
                 /* Staggered Animations */
                 .animate-in {
                     opacity: 0;
-                    transform: translateY(20px);
+                    transform: translateY(30px);
                     animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                 }
-                .delay-1 { animation-delay: 0.2s; }
-                .delay-2 { animation-delay: 0.4s; }
-                .delay-3 { animation-delay: 0.6s; }
+                .delay-1 { animation-delay: 0.1s; }
+                .delay-2 { animation-delay: 0.2s; }
+                .delay-3 { animation-delay: 0.3s; }
+                .delay-4 { animation-delay: 0.4s; }
                 
                 @keyframes fadeInUp {
                     to { opacity: 1; transform: translateY(0); }
